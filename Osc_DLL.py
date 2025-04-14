@@ -1,11 +1,12 @@
 # Module:  Osc_DLL
 import ctypes
-
+import os
 class OscDLL(object):
     """ Wrappr for Micheal Osc_DLL for usage from Python """
     def __init__(self):
 
-        x = ctypes.CDLL(r'C:\Users\jfont\Desktop\projects\python\serial_scope\serial_scope_py\Osc_DLL64.dll')
+        dll_path = os.path.abspath("Osc_DLL64.dll")  # Asegúrate de que este archivo exista aquí
+        x = ctypes.CDLL(dll_path)
 
         #   int (__cdecl * AtOpenLib) (int Prm);
         x.AtOpenLib.restype =  ctypes.c_int
