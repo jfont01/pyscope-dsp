@@ -5,7 +5,7 @@ class OscDLL(object):
     """ Wrappr for Micheal Osc_DLL for usage from Python """
     def __init__(self):
 
-        dll_path = os.path.abspath("Osc_DLL64.dll")  # Asegúrate de que este archivo exista aquí
+        dll_path = os.path.abspath("Osc_DLL64.dll")  # Path absoluto de la dll.
         x = ctypes.CDLL(dll_path)
 
         #   int (__cdecl * AtOpenLib) (int Prm);
@@ -39,23 +39,23 @@ class OscDLL(object):
         #return super().__init__(*args, **kwargs)
 
     def ScopeCreate(self,P_IniName,P_IniSuffix):
-        """ Create scope instance """
+        """ Crea la instancia del osciloscopio """
         ScopeHandle = self._hllDll.ScopeCreate(ctypes.c_int(0),ctypes.create_unicode_buffer(P_IniName),ctypes.create_unicode_buffer(P_IniSuffix))
         return ScopeHandle
 
     def ScopeShow(self,ScopeHandle):
-        """ Show scope instance """
+        """ Muestra la instancia del osciloscopia """
         self._hllDll.ScopeShow(ctypes.c_int(ScopeHandle))
 
     def ShowNext(self,ScopeHandle,rgb):
-        """ Add a point to graph """
+        """ Actualiza el osciloscopio """
         self._hllDll.ShowNext(ctypes.c_int(ScopeHandle), ctypes.byref((ctypes.c_double*3)(rgb[0],rgb[1],rgb[2])) )
 
     def ScopeHide(self,ScopeHandle):
-        """ Hide scope instance """
+        """ Oculta la instancia del osciloscopia """
         self._hllDll.ScopeHide(ctypes.c_int(ScopeHandle))
 
 
     def ScopeDestroy(self,ScopeHandle):
-        """ Destroy scope instance """
+        """ Destruye la instancia del osciloscopia """
         self._hllDll.ScopeDestroy(ctypes.c_int(ScopeHandle))
